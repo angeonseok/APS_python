@@ -12,3 +12,5 @@ C개의 공유기를 N개의 집에 적당히 설치해서, 가장 인접한 두
 import sys
 # input = sys.stdin.readline
 sys.stdin = open('input.txt')
+
+def wifi()
