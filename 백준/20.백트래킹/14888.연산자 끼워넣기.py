@@ -22,7 +22,6 @@ N개의 수와 N-1개의 연산자가 주어졌을 때, 만들 수 있는 식의
 
 import sys
 input = sys.stdin.readline
-# sys.stdin = open("input.txt")
 
 n = int(input())
 nums = list(map(int, input().split()))
