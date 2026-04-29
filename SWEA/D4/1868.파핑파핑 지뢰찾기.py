@@ -21,10 +21,12 @@
 최소 몇 번의 클릭을 해야 지뢰가 없는 모든 칸에 숫자가 표시될 것인지 출력한다.
 """
 
+#8방향 bfs
 from collections import deque
 
 dirs = ((0,1), (1,1), (1,0), (1,-1), (0,-1), (-1,-1), (-1,0), (-1,1))
 
+#현재 기준 8방향에 지뢰 수 세기
 def count_boom(i, j):
     cnt_boom = 0
 
@@ -49,28 +51,33 @@ for tc in range(1, T+1):
 
     for i in range(n):
         for j in range(n):
+
+            #미확인 안전지대 확인
             if arr[i][j] != "*" and not visited[i][j]:
                 cnt_boom = count_boom(i, j)
 
+                #주변에 없으면 여기부터 터짐
                 if cnt_boom == 0:
                     q.append((i, j))
                     visited[i][j] = True
                     cnt += 1
 
                     while q:
-                        i, j = q.popleft()
+                        ci, cj = q.popleft()
                         
-                        if count_boom(i, j) != 0:
+                        #더 퍼질 수 없으면 컷
+                        if count_boom(ci, cj) != 0:
                             continue
                         
                         for dir in dirs:
-                            ni, nj = i + dir[0], j + dir[1]
+                            ni, nj = ci + dir[0], cj + dir[1]
                             
                             if 0 <= ni < n and 0 <= nj < n:
                                 if arr[ni][nj] != '*' and not visited[ni][nj]:
                                     visited[ni][nj] = True
                                     q.append((ni, nj))
     
+    #방문처리 안된 친구들 1개씩 눌러
     for i in range(n):
         for j in range(n):
             if arr[i][j] != "*" and not visited[i][j]:
